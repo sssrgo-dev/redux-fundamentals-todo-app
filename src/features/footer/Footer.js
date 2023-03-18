@@ -1,7 +1,7 @@
 import { availableColors, capitalize } from '../filters/colors'
 import { StatusFilters, colorFilterChanged } from '../filters/filtersSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFilteredTodoIds, selectTodoEntities } from '../todos/todosSlice'
+import { selectFilteredTodos } from '../todos/todosSlice'
 
 const RemainingTodos = ({ count }) => {
   const suffix = count === 1 ? '' : 's'
@@ -39,7 +39,7 @@ const StatusFilter = ({ value: status, onChange }) => {
 
 const ColorFilters = ({ value: colors, onChange }) => {
   const renderedColors = availableColors.map((color) => {
-    const checked = color.includes(color)
+    const checked = colors.includes(color)
     const handleChange = () => {
       const changeType = checked ? 'removed' : 'added'
       onChange(color, changeType)
@@ -69,12 +69,30 @@ const ColorFilters = ({ value: colors, onChange }) => {
 
 const Footer = () => {
   const dispatch = useDispatch()
-  const todosRemaining = useSelector(selectFilteredTodoIds).length
+
+  const filteredTodos = Object.values(useSelector(selectFilteredTodos))
+  // console.log('filteredTodos', filteredTodos)
+
+  const todosRemainingNum = filteredTodos.length
+
+  // console.log('todosRemainingNum', todosRemainingNum)
 
   const { status, colors } = useSelector((state) => state.filters)
 
   const onColorChange = (color, changeType) =>
     dispatch(colorFilterChanged(color, changeType))
+
+  const handleAllCompletedClick = () =>
+    filteredTodos.forEach((todo) =>
+      dispatch({ type: 'todos/todoToggled', payload: todo.id })
+    )
+
+  const handleCleraCompletedClick = () =>
+    filteredTodos
+      .filter((todo) => todo.completed)
+      .forEach((todo) =>
+        dispatch({ type: 'todo/todoDeleted', payload: { id: todo.id } })
+      )
 
   const onStatusChange = (status) =>
     dispatch({ type: 'filters/statusFilterChanged', payload: status })
@@ -83,11 +101,15 @@ const Footer = () => {
     <footer className="footer">
       <div className="actions">
         <h5>Actions</h5>
-        <button className="button">Mark All Completed</button>
-        <button className="button">Clear Completed</button>
+        <button className="button" onClick={handleAllCompletedClick}>
+          Mark All Completed
+        </button>
+        <button className="button" onClick={handleCleraCompletedClick}>
+          Clear Completed
+        </button>
       </div>
 
-      <RemainingTodos count={todosRemaining} />
+      <RemainingTodos count={todosRemainingNum} />
       <StatusFilter value={status} onChange={onStatusChange} />
       <ColorFilters value={colors} onChange={onColorChange} />
     </footer>

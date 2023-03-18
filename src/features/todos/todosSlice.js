@@ -51,8 +51,10 @@ export default function todosReducer(state = inititalState, action) {
     }
 
     case 'todo/todoDeleted': {
+      console.log('deletion')
       const newEntities = { ...state.entities }
-      delete newEntities[action.payload]
+      delete newEntities[action.payload.id]
+
       return {
         ...state,
         entities: newEntities,
