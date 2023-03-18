@@ -7,12 +7,12 @@ function App() {
     <div className="App">
       <nav>
         <section>
-          <h1>Redux Fundamentals Example</h1>
+          <h1>Look what an application Sssrgo have made</h1>
         </section>
       </nav>
       <main>
         <section className="medium-container">
-          <h2>Todos</h2>
+          <h2>Todos simple application</h2>
           <div className="todoapp">
             <Header />
             <TodoList />
