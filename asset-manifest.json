@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/redux-fundamentals-todo-app/static/css/main.b343f371.css",
+    "main.js": "/redux-fundamentals-todo-app/static/js/main.bbf66261.js",
+    "index.html": "/redux-fundamentals-todo-app/index.html",
+    "static/media/times-solid.svg": "/redux-fundamentals-todo-app/static/media/times-solid.dc24ef652734a3143dc7179604e15a08.svg",
+    "main.b343f371.css.map": "/redux-fundamentals-todo-app/static/css/main.b343f371.css.map",
+    "main.bbf66261.js.map": "/redux-fundamentals-todo-app/static/js/main.bbf66261.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b343f371.css",
+    "static/js/main.bbf66261.js"
+  ]
+}
